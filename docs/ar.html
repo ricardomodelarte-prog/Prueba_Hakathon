@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Mapa Seguro Marte AR - AR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <!-- 1) Comprueba cámara / navegador interno ANTES de cargar nada pesado y redirige al visor si hace falta -->
+  <script src="js/ar-fallback.js"></script>
+  <!-- 2) Librerías locales (sin CDN): A-Frame 1.5.0 y MindAR 1.2.5 -->
+  <script src="vendor/aframe.min.js"></script>
+  <script src="vendor/mindar-image-aframe.prod.js"></script>
+  <!-- 3) Código común con viewer.html -->
+  <script src="js/terrain.js"></script>
+  <script src="js/ruta.js"></script>
+  <script src="js/rover.js"></script>
+  <script src="js/mapa.js"></script>
+  <script src="js/ui.js"></script>
+  <!-- 4) Solo de AR -->
+  <script src="js/ar.js"></script>
+</head>
+<body>
+  <!-- uiLoading/uiScanning/uiError: "no" = usamos nuestros propios mensajes -->
+  <a-scene mindar-image="imageTargetSrc: assets/target/card.mind; uiLoading: no; uiScanning: no; uiError: no; missTolerance: 10"
+           vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-camera position="0 0 0" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+
+    <!-- Entidad de MindAR: su pose es la de la tarjeta (1 unidad = ancho de la tarjeta) -->
+    <a-entity id="ancla" mindar-image-target="targetIndex: 0"></a-entity>
+
+    <!-- El contenido va aparte y copia la pose del ancla (así puede quedarse 3 s al perder la tarjeta) -->
+    <a-entity id="contenido" marte-mapa seguir-ancla="ancla: #ancla"></a-entity>
+  </a-scene>
+
+  <div id="ar-aviso" data-t="buscando"></div>
+
+  <div id="ar-consejos">
+    <h2 data-t="consejosTitulo"></h2>
+    <ul id="ar-lista"></ul>
+    <div class="fila-botones">
+      <a class="boton" id="ar-enlace-tarjeta" href="#" target="_blank" rel="noopener" data-t="verTarjeta"></a>
+      <a class="boton" id="ar-enlace-visor" href="viewer.html" data-t="irAlVisor"></a>
+    </div>
+  </div>
+</body>
+</html>

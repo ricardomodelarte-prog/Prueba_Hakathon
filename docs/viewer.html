@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Mapa Seguro Marte AR - Visor 3D</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Librerías locales (sin CDN) -->
+  <script src="js/config.js"></script>
+  <script src="vendor/aframe.min.js"></script>
+  <!-- Código común con ar.html -->
+  <script src="js/terrain.js"></script>
+  <script src="js/ruta.js"></script>
+  <script src="js/rover.js"></script>
+  <script src="js/mapa.js"></script>
+  <script src="js/ui.js"></script>
+  <!-- Solo del visor -->
+  <script src="js/orbit.js"></script>
+  <script src="js/viewer.js"></script>
+</head>
+<body>
+  <!-- Sin cámara real: el "ancla" es una entidad quieta con la tarjeta tumbada en el suelo
+       (rotación -90° en X: el eje Z de la tarjeta apunta hacia arriba). -->
+  <a-scene background="color: #241814" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-entity id="camara" camera="fov: 55" orbita-simple></a-entity>
+    <a-entity id="contenido" rotation="-90 0 0" marte-mapa></a-entity>
+  </a-scene>
+
+  <!-- Aviso si venimos de un fallback de AR -->
+  <div id="fb-aviso">
+    <h2 data-t="fallbackTitulo"></h2>
+    <div id="fb-motivo"></div>
+    <div data-t="fallbackConsejo" style="margin-top:6px"></div>
+    <input id="fb-url" class="campo" type="text" readonly>
+    <div class="fila-botones">
+      <button class="boton" id="fb-copiar" type="button" data-t="copiarEnlaceAR"></button>
+      <button class="boton" id="fb-cerrar" type="button" data-t="cerrar"></button>
+    </div>
+  </div>
+
+  <div id="v-botones">
+    <a class="boton" id="v-ar" href="ar.html" data-t="abrirAR"></a>
+    <button class="boton" id="v-mostrar" type="button" data-t="mostrarTarjeta"></button>
+    <button class="boton" id="v-reiniciar" type="button" data-t="reiniciarVista"></button>
+  </div>
+  <div id="v-ayuda" data-t="ayudaVisor"></div>
+
+  <!-- Tarjeta a pantalla completa para apuntar otro móvil a esta pantalla -->
+  <div id="v-tarjeta">
+    <img src="assets/target/card.png" alt="Tarjeta de AR">
+    <div data-t="tarjetaAyuda"></div>
+    <button class="boton" id="v-cerrar-tarjeta" type="button" data-t="cerrarTarjeta"></button>
+  </div>
+</body>
+</html>

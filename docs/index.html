@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapa Seguro Marte AR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+</head>
+<body>
+  <!-- Los textos salen de js/config.js (data-t = clave del texto) -->
+  <main class="landing">
+    <h1 data-t="titulo"></h1>
+    <p data-t="subtitulo"></p>
+
+    <div class="botones">
+      <a class="boton grande" id="btn-ar" href="ar.html" data-t="verAR"></a>
+      <a class="boton grande secundario" id="btn-3d" href="viewer.html" data-t="ver3D"></a>
+    </div>
+
+    <p data-t="pistaAR"></p>
+    <p><a id="btn-tarjeta" href="assets/target/card.png" target="_blank" rel="noopener" data-t="abrirTarjeta"></a></p>
+
+    <p data-t="pistaEnlace"></p>
+    <div class="enlace">
+      <code id="url-pagina"></code>
+      <button class="boton" id="btn-copiar" type="button" data-t="copiar"></button>
+    </div>
+
+    <p class="pie" data-t="creditos"></p>
+  </main>
+
+  <script>
+    MARTE.traducirPagina();
+    // Mantiene ?lite / ?debug al pasar a las otras páginas
+    document.getElementById('btn-ar').href = MARTE.conParams('ar.html');
+    document.getElementById('btn-3d').href = MARTE.conParams('viewer.html');
+    // Muestra la dirección de esta página para abrirla en el móvil
+    var url = window.location.href.split('?')[0].split('#')[0];
+    document.getElementById('url-pagina').textContent = url;
+    document.getElementById('btn-copiar').addEventListener('click', function () {
+      var boton = this;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () { boton.textContent = MARTE.t('copiado'); });
+      }
+    });
+  </script>
+</body>
+</html>

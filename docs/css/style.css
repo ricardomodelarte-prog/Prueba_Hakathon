@@ -1,0 +1,76 @@
+/* style.css - estilos comunes de index, ar y viewer. Sin librerías, móvil primero. */
+:root {
+  --marron: #1d1411;
+  --marte: #c1664a;
+  --texto: #f6ede8;
+  --panel: rgba(25, 16, 13, 0.78);
+  --borde: rgba(255, 255, 255, 0.22);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--marron); color: var(--texto);
+             font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: #ffd9b0; }
+
+/* ---------- Botones ---------- */
+.boton { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--borde);
+         background: var(--panel); color: var(--texto); font-size: 15px; text-decoration: none;
+         cursor: pointer; font-family: inherit; }
+.boton:active { background: #4a2a20; }
+.boton.grande { padding: 16px 28px; font-size: 20px; font-weight: 600; background: var(--marte); border-color: transparent; }
+.boton.grande.secundario { background: transparent; border: 2px solid var(--marte); }
+
+/* ---------- Landing (index.html) ---------- */
+.landing { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+           padding: 24px 16px; text-align: center;
+           background: radial-gradient(ellipse at 50% 0%, #6b3524 0%, var(--marron) 65%); }
+.landing h1 { font-size: clamp(28px, 7vw, 48px); margin: 0 0 8px; }
+.landing p { max-width: 34em; line-height: 1.45; margin: 8px 0; }
+.landing .botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 22px 0; }
+.landing .enlace { display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+.landing code, .campo { background: rgba(0, 0, 0, 0.35); padding: 6px 10px; border-radius: 6px; font-size: 13px;
+                        word-break: break-all; border: 1px solid var(--borde); color: var(--texto); }
+.landing .pie { font-size: 12px; opacity: 0.7; margin-top: 28px; }
+
+/* ---------- Superposición común (ui.js) ---------- */
+#marte-ui { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+#marte-ui .panel { position: absolute; background: var(--panel); border: 1px solid var(--borde);
+                   border-radius: 8px; padding: 6px 10px; font-size: 13px; line-height: 1.3; }
+#marte-ui button { pointer-events: auto; }
+#marte-nota { top: calc(8px + env(safe-area-inset-top)); left: 8px; max-width: calc(100vw - 130px); }
+#marte-estado { top: calc(46px + env(safe-area-inset-top)); left: 8px; max-width: 80vw; }
+#marte-estado.aviso { background: #6e1f2e; border-color: #ff9aa8; }
+#marte-fps { font-family: monospace; }
+#marte-leyenda { bottom: calc(8px + env(safe-area-inset-bottom)); left: 8px; }
+#marte-leyenda .fila { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+#marte-leyenda .muestra { width: 22px; height: 12px; border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.6); flex: none; }
+#marte-leyenda .muestra.ruta { background: #fff; height: 5px; border: 2px solid #1a1a1a; border-radius: 4px; }
+#marte-escala { position: absolute; bottom: calc(12px + env(safe-area-inset-bottom)); right: 12px; }
+
+/* ---------- Visor 3D ---------- */
+#v-botones { position: fixed; top: calc(8px + env(safe-area-inset-top)); right: 8px; z-index: 11;
+             display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+#v-botones .boton { font-size: 13px; padding: 8px 10px; text-align: center; }
+#v-ayuda { position: fixed; left: 50%; bottom: 150px; transform: translateX(-50%); z-index: 11; pointer-events: none;
+           background: var(--panel); border-radius: 20px; padding: 6px 14px; font-size: 13px; transition: opacity 1s;
+           white-space: nowrap; max-width: 94vw; }
+.a-canvas { touch-action: none; }
+#fb-aviso { display: none; position: fixed; z-index: 30; top: 8px; left: 8px; right: 8px; max-width: 520px; margin: 0 auto;
+            background: #3a1f12; border: 2px solid #ffb86b; border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.4; }
+#fb-aviso h2 { margin: 0 0 6px; font-size: 16px; }
+#fb-aviso input { width: 100%; margin: 8px 0; padding: 8px; font-size: 13px; }
+#fb-aviso .fila-botones { display: flex; gap: 8px; flex-wrap: wrap; }
+#v-tarjeta { display: none; position: fixed; inset: 0; z-index: 40; background: #fff; color: #222;
+             flex-direction: column; align-items: center; justify-content: center; padding: 12px; gap: 14px; text-align: center; }
+#v-tarjeta img { max-width: 100%; max-height: 72vh; }
+
+/* ---------- AR ---------- */
+#ar-aviso { display: none; position: fixed; z-index: 12; left: 50%; top: 42%; transform: translateX(-50%);
+            background: var(--panel); padding: 10px 16px; border-radius: 10px; font-size: 16px; text-align: center; pointer-events: none; }
+#ar-consejos { display: none; position: fixed; z-index: 12; left: 12px; right: 12px; top: 20%; max-width: 440px; margin: 0 auto;
+               background: rgba(25, 16, 13, 0.92); border: 1px solid var(--borde); border-radius: 12px; padding: 12px 16px; font-size: 14px; }
+#ar-consejos h2 { margin: 0 0 6px; font-size: 16px; }
+#ar-consejos ul { margin: 6px 0 10px; padding-left: 20px; }
+#ar-consejos .fila-botones { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Ocultamos el botón de pantalla completa/VR que A-Frame añade solo */
+.a-enter-vr, .a-enter-ar { display: none !important; }

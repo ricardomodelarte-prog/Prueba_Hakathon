@@ -1,0 +1,12 @@
+{
+  "name": "rover-models",
+  "private": true,
+  "type": "module",
+  "description": "Prepara el GLB oficial de NASA Perseverance para WebAR movil",
+  "scripts": { "prep": "node prep.mjs" },
+  "dependencies": {
+    "@gltf-transform/core": "^4.2.0",
+    "@gltf-transform/extensions": "^4.2.0",
+    "draco3dgltf": "^1.5.7"
+  }
+}

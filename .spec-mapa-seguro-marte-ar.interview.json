@@ -1,0 +1,48 @@
+{
+  "specName": "mapa-seguro-marte-ar",
+  "timestamp": "2026-10-18",
+  "status": "spec-written",
+  "mode": "greenfield",
+  "capturedAtCommit": null,
+  "baseline": { "derivedFrom": "greenfield", "capturedAtCommit": null, "claims": [] },
+  "coverageMap": {
+    "Problema": "done", "Experiencia AR": "done", "Criterio seguro": "done", "Interaccion rover": "done",
+    "Distribucion": "done", "Equipo": "done", "Plan": "done", "Stack": "done", "Zona": "done", "Escala": "done",
+    "Modelo de riesgo": "done", "Modelo 3D": "done", "Demo y evaluacion": "done", "Reglas": "done",
+    "Idioma": "done", "Dispositivos": "done", "Prioridades": "done"
+  },
+  "qaLog": [
+    { "area": "Experiencia AR", "q": "Anclaje AR", "a": "Mapa impreso = marcador (Invizimals)", "decision": "D1" },
+    { "area": "Criterio seguro", "q": "Que significa seguro", "a": "Transitable para el rover", "decision": "D2" },
+    { "area": "Interaccion rover", "q": "Que hace el rover", "a": "Ruta segura A->B", "decision": "D3" },
+    { "area": "Distribucion", "q": "Como llega a los moviles", "a": "Web app por enlace/QR", "decision": "D4" },
+    { "area": "Equipo", "q": "Experiencia del equipo", "a": "Poca experiencia tecnica", "decision": "D5" },
+    { "area": "Plan", "q": "Como cubrir el hueco tecnico", "a": "Prototipo con IA antes del 14-nov", "decision": "D6" },
+    { "area": "Zona", "q": "Que zona", "a": "Jezero, ruta de Perseverance", "decision": "D9" },
+    { "area": "Escala", "q": "Zona grande vs rover visible", "a": "Rover ampliado + boton escala real", "decision": "D10" },
+    { "area": "Modelo de riesgo", "q": "Que entra en el riesgo", "a": "Pendiente + rugosidad + capa arena", "decision": "D11" },
+    { "area": "Modelo 3D", "q": "Origen del modelo", "a": "Oficial NASA Perseverance", "decision": "D12" },
+    { "area": "Demo y evaluacion", "q": "Juez sin carta", "a": "Visor 3D en PC + carta en pantalla", "decision": "D13" },
+    { "area": "Reglas", "q": "Si no se permite codigo previo", "a": "Prototipo de aprendizaje + repo nuevo", "decision": "D14" },
+    { "area": "Idioma", "q": "Idioma UI", "a": "Bilingue ES/EN con selector", "decision": "D15" },
+    { "area": "Dispositivos", "q": "Dispositivos de prueba", "a": "iPhone, Android alto, Android antiguo (sin Mac)", "decision": "D16" },
+    { "area": "Prioridades", "q": "Que se recorta primero", "a": "Bilingue y toque A->B", "decision": "D17" }
+  ],
+  "previewUrl": null,
+  "sourceIssue": null,
+  "feedbackRounds": [],
+  "driftLedger": [],
+  "redTeamStatus": "completed",
+  "redTeamFindings": [
+    { "n": 1, "dimension": "Operational Concerns", "severity": "critical", "title": "Demo de 30 s sin guion", "resolution": "D22" },
+    { "n": 2, "dimension": "Data Integrity", "severity": "critical", "title": "Alineacion carta/terreno/ruta sin verificar", "resolution": "D23" },
+    { "n": 3, "dimension": "Contradictory Decisions", "severity": "major", "title": "Perseverance si entro en Seitah", "resolution": "D24" },
+    { "n": 4, "dimension": "Failure Modes", "severity": "major", "title": "Sin plan B en movil", "resolution": "D25" },
+    { "n": 5, "dimension": "Data Integrity", "severity": "major", "title": "Resolucion y combinacion de riesgos", "resolution": "D26" },
+    { "n": 6, "dimension": "Scaling Cliffs", "severity": "major", "title": "Sin presupuesto de rendimiento", "resolution": "D28" },
+    { "n": 7, "dimension": "Dependency Risks", "severity": "major", "title": "MindAR sin mantenimiento y CDN", "resolution": "D29" },
+    { "n": 8, "dimension": "Contradictory Decisions", "severity": "major", "title": "Rover x50 incoherente", "resolution": "D27" },
+    { "n": 9, "dimension": "Operational Concerns", "severity": "major", "title": "URL y version carta/.mind", "resolution": "D30" },
+    { "n": 10, "dimension": "wildcard", "severity": "major", "title": "Enfoque Survival Guide humano", "resolution": "D31" }
+  ]
+}

@@ -56,6 +56,10 @@
     MARTE.t('consejos').forEach(function (c) {
       var li = document.createElement('li'); li.textContent = c; lista.appendChild(li);
     });
+    var cerrar = document.getElementById('ar-cerrar');
+    cerrar.setAttribute('aria-label', MARTE.t('cerrarConsejos'));
+    cerrar.title = MARTE.t('cerrarConsejos');
+    cerrar.addEventListener('click', function () { consejos.style.display = 'none'; });
     document.getElementById('ar-enlace-visor').href = MARTE.conParams('viewer.html');
     document.getElementById('ar-enlace-tarjeta').href = 'assets/target/card.png';
 
@@ -75,7 +79,7 @@
     // --- MindAR listo: pedimos apuntar a la tarjeta y empezamos a contar 10 s ---
     escena.addEventListener('arReady', function () {
       listo = true;
-      aviso.style.display = 'block';
+      aviso.style.display = 'flex';        // el marco guía y el texto van en columna
       temporizador = setTimeout(function () {
         aviso.style.display = 'none';
         consejos.style.display = 'block';

@@ -8,6 +8,11 @@
   var MARTE = window.MARTE;
   var C = MARTE.CONFIG;
 
+  // Intensidades de las luces (A-Frame 1.5 usa luces "clásicas": 1 = color completo de frente).
+  // Suelo llano = ambiente + sol * sen(altura del sol) ~ 1: los colores se ven como en la paleta.
+  var LUZ_SOL = 1.2;
+  var LUZ_AMBIENTE = 0.64;
+
   /* Etiqueta de texto como sprite (se dibuja en un canvas: no necesita fuentes ni internet). */
   function crearEtiqueta(texto, alto) {
     var THREE = AFRAME.THREE;
@@ -51,6 +56,7 @@
       this.grupo = document.createElement('a-entity');
       this.grupo.setAttribute('rotation', '90 0 0');
       this.el.appendChild(this.grupo);
+      this.crearLuces();
 
       MARTE.getHeightmap().then(function (hm) {
         self.construir(hm);
@@ -58,6 +64,35 @@
         console.error('Error creando el mapa', err);
         window.dispatchEvent(new CustomEvent('marte-error', { detail: err }));
       });
+    },
+
+    /* Luces del mapa: un "sol" cálido y bajo + un ambiente tenue. Cuelgan del grupo del contenido,
+       así que se mueven y giran con la tarjeta (en AR) y el relieve siempre se ve sombreado igual. */
+    crearLuces: function () {
+      var THREE = AFRAME.THREE;
+      var escena = this.el.sceneEl;
+
+      // A-Frame mete luces por defecto si no encuentra ninguna suya; con las nuestras sobrarían.
+      // Se desactivan desde JS (equivale a light="defaultLightsEnabled: false" en <a-scene>).
+      if (escena.systems && escena.systems.light) { escena.systems.light.data.defaultLightsEnabled = false; }
+      function quitarLucesPorDefecto() {
+        var extra = escena.querySelectorAll('[data-aframe-default-light]');
+        for (var i = 0; i < extra.length; i++) { extra[i].parentNode.removeChild(extra[i]); }
+      }
+      if (escena.hasLoaded) { quitarLucesPorDefecto(); }
+      else { escena.addEventListener('loaded', quitarLucesPorDefecto); }
+
+      // Sol bajo (~28° sobre el horizonte) que viene del suroeste del mapa, en el espacio del grupo
+      // (Y = arriba del terreno). Su "objetivo" es el centro del mapa y también cuelga del grupo.
+      var sol = new THREE.DirectionalLight(0xffd7ad, LUZ_SOL);
+      sol.position.set(-0.85, 0.55, 0.75);
+      var objetivo = new THREE.Object3D();
+      this.grupo.setObject3D('sol', sol);
+      this.grupo.setObject3D('solObjetivo', objetivo);
+      sol.target = objetivo;
+
+      // Ambiente tenue, algo frío/salmón (el cielo de Marte rellena las sombras)
+      this.grupo.setObject3D('ambiente', new THREE.AmbientLight(0xc7a9a6, LUZ_AMBIENTE));
     },
 
     construir: function (hm) {

@@ -165,10 +165,11 @@
             R.puntos[lo][1] + (R.puntos[hi][1] - R.puntos[lo][1]) * t];
   };
 
-  /* Dibuja la ruta: tubo blanco con borde oscuro, siempre visible (no lo tapa el relieve). */
+  /* Dibuja la ruta: tubo cian (MARTE.COLORES.ruta) con borde oscuro, siempre visible (no lo tapa el relieve). */
   MARTE.crearLineaRuta = function (T, R) {
     var THREE = AFRAME.THREE;
     var grupo = new THREE.Group();
+    var colorRuta = (MARTE.COLORES && MARTE.COLORES.ruta) || '#22e0ff';
     var pts = R.puntos.map(function (p) {
       var u = T.aUnidades(p[0], T.alturaVisual(p[0], p[1]), p[1]);
       return new THREE.Vector3(u[0], u[1] + C.ELEVACION_RUTA, u[2]);
@@ -184,16 +185,18 @@
       m.frustumCulled = false;
       return m;
     }
-    grupo.add(tubo(C.RADIO_RUTA * 1.8, 0x1a1a1a, 2));   // borde oscuro (contraste sobre ámbar)
-    grupo.add(tubo(C.RADIO_RUTA, 0xffffff, 3));          // línea blanca
+    grupo.add(tubo(C.RADIO_RUTA * 1.9, '#10151a', 2));   // borde oscuro (contraste sobre ámbar y claro)
+    grupo.add(tubo(C.RADIO_RUTA, colorRuta, 3));          // línea de color
 
-    // Marcadores de inicio (A) y fin (B)
+    // Marcadores de inicio (A) y fin (B): bola oscura grande + bola de color encima
     [pts[0], pts[pts.length - 1]].forEach(function (p) {
-      var geo = new THREE.SphereGeometry(C.RADIO_RUTA * 3, 12, 8);
-      var m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffffff, depthTest: false, depthWrite: false }));
-      m.position.copy(p);
-      m.renderOrder = 4;
-      grupo.add(m);
+      [[3.6, '#10151a', 4], [2.5, colorRuta, 5]].forEach(function (e) {
+        var geo = new THREE.SphereGeometry(C.RADIO_RUTA * e[0], 12, 8);
+        var m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: e[1], depthTest: false, depthWrite: false }));
+        m.position.copy(p);
+        m.renderOrder = e[2];
+        grupo.add(m);
+      });
     });
     return grupo;
   };

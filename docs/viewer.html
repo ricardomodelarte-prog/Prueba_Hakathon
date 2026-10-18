@@ -2,8 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Mapa Seguro Marte AR - Visor 3D</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#150e0b">
+  <title>Visor 3D · Mapa Seguro de Marte</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23150e0b'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e96f3f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2322e0ff'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <!-- Librerías locales (sin CDN) -->
   <script src="js/config.js"></script>
@@ -18,7 +21,7 @@
   <script src="js/orbit.js"></script>
   <script src="js/viewer.js"></script>
 </head>
-<body>
+<body class="pagina-visor">
   <!-- Sin cámara real: el "ancla" es una entidad quieta con la tarjeta tumbada en el suelo
        (rotación -90° en X: el eje Z de la tarjeta apunta hacia arriba). -->
   <a-scene background="color: #241814" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -27,27 +30,28 @@
   </a-scene>
 
   <!-- Aviso si venimos de un fallback de AR -->
-  <div id="fb-aviso">
+  <div id="fb-aviso" role="alert">
     <h2 data-t="fallbackTitulo"></h2>
     <div id="fb-motivo"></div>
-    <div data-t="fallbackConsejo" style="margin-top:6px"></div>
+    <div class="consejo" data-t="fallbackConsejo"></div>
     <input id="fb-url" class="campo" type="text" readonly>
     <div class="fila-botones">
-      <button class="boton" id="fb-copiar" type="button" data-t="copiarEnlaceAR"></button>
+      <button class="boton primario" id="fb-copiar" type="button" data-t="copiarEnlaceAR"></button>
       <button class="boton" id="fb-cerrar" type="button" data-t="cerrar"></button>
     </div>
   </div>
 
+  <!-- Botones de arriba: "Probar AR" siempre con texto; los otros dos solo icono en móvil (el texto sigue para lectores de pantalla) -->
   <div id="v-botones">
-    <a class="boton" id="v-ar" href="ar.html" data-t="abrirAR"></a>
-    <button class="boton" id="v-mostrar" type="button" data-t="mostrarTarjeta"></button>
-    <button class="boton" id="v-reiniciar" type="button" data-t="reiniciarVista"></button>
+    <a class="boton primario" id="v-ar" href="ar.html"><span class="ico ico-ar" aria-hidden="true"></span><span data-t="abrirAR"></span></a>
+    <button class="boton icono" id="v-mostrar" type="button"><span class="ico ico-tarjeta" aria-hidden="true"></span><span class="txt" data-t="mostrarTarjeta"></span></button>
+    <button class="boton icono" id="v-reiniciar" type="button"><span class="ico ico-reiniciar" aria-hidden="true"></span><span class="txt" data-t="reiniciarVista"></span></button>
   </div>
   <div id="v-ayuda" data-t="ayudaVisor"></div>
 
   <!-- Tarjeta a pantalla completa para apuntar otro móvil a esta pantalla -->
-  <div id="v-tarjeta">
-    <img src="assets/target/card.png" alt="Tarjeta de AR">
+  <div id="v-tarjeta" role="dialog" aria-modal="true">
+    <img src="assets/target/card.png" alt="">
     <div data-t="tarjetaAyuda"></div>
     <button class="boton" id="v-cerrar-tarjeta" type="button" data-t="cerrarTarjeta"></button>
   </div>

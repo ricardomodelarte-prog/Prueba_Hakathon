@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
   MARTE.traducirPagina();
   MARTE.iniciarUI();
 
+  // Los botones solo con icono llevan el texto como ayuda (tooltip en escritorio)
+  Array.prototype.forEach.call(document.querySelectorAll('#v-botones .icono'), function (b) {
+    b.title = b.querySelector('.txt').textContent;
+  });
+  document.getElementById('fb-url').setAttribute('aria-label', MARTE.t('copiarEnlaceAR'));
+  document.querySelector('#v-tarjeta img').alt = MARTE.t('tarjetaAyuda');
+
   var enlaceAR = new URL(MARTE.conParams('ar.html'), window.location.href).href;
   document.getElementById('v-ar').href = MARTE.conParams('ar.html');
 
@@ -35,8 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Tarjeta a pantalla completa (para que otro móvil la apunte con la cámara) ---
   var tarjeta = document.getElementById('v-tarjeta');
-  document.getElementById('v-mostrar').addEventListener('click', function () { tarjeta.style.display = 'flex'; });
-  document.getElementById('v-cerrar-tarjeta').addEventListener('click', function () { tarjeta.style.display = 'none'; });
+  var botonMostrar = document.getElementById('v-mostrar');
+  var botonCerrarTarjeta = document.getElementById('v-cerrar-tarjeta');
+  function cerrarTarjeta() { tarjeta.style.display = 'none'; botonMostrar.focus(); }
+  botonMostrar.addEventListener('click', function () { tarjeta.style.display = 'flex'; botonCerrarTarjeta.focus(); });
+  botonCerrarTarjeta.addEventListener('click', cerrarTarjeta);
+  document.addEventListener('keydown', function (e) {      // Esc cierra la tarjeta
+    if (e.key === 'Escape' && tarjeta.style.display === 'flex') { cerrarTarjeta(); }
+  });
 
   // --- Reiniciar vista ---
   document.getElementById('v-reiniciar').addEventListener('click', function () {

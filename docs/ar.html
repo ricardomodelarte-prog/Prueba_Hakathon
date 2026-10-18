@@ -2,8 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Mapa Seguro Marte AR - AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#150e0b">
+  <title>AR · Mapa Seguro de Marte</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23150e0b'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e96f3f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2322e0ff'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/config.js"></script>
   <!-- 1) Comprueba cámara / navegador interno ANTES de cargar nada pesado y redirige al visor si hace falta -->
@@ -20,7 +23,7 @@
   <!-- 4) Solo de AR -->
   <script src="js/ar.js"></script>
 </head>
-<body>
+<body class="pagina-ar">
   <!-- uiLoading/uiScanning/uiError: "no" = usamos nuestros propios mensajes -->
   <a-scene mindar-image="imageTargetSrc: assets/target/card.mind; uiLoading: no; uiScanning: no; uiError: no; missTolerance: 10"
            vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -33,14 +36,20 @@
     <a-entity id="contenido" marte-mapa seguir-ancla="ancla: #ancla"></a-entity>
   </a-scene>
 
-  <div id="ar-aviso" data-t="buscando"></div>
+  <!-- Marco guía con la forma de la tarjeta (aparece cuando MindAR está listo) -->
+  <div id="ar-aviso" role="status">
+    <div class="marco"></div>
+    <p data-t="buscando"></p>
+  </div>
 
+  <!-- Consejos si en ~10 s no se ve la tarjeta (arriba, para no tapar la cámara; se pueden cerrar) -->
   <div id="ar-consejos">
+    <button class="boton" id="ar-cerrar" type="button"><span class="ico ico-cerrar" aria-hidden="true"></span></button>
     <h2 data-t="consejosTitulo"></h2>
     <ul id="ar-lista"></ul>
     <div class="fila-botones">
       <a class="boton" id="ar-enlace-tarjeta" href="#" target="_blank" rel="noopener" data-t="verTarjeta"></a>
-      <a class="boton" id="ar-enlace-visor" href="viewer.html" data-t="irAlVisor"></a>
+      <a class="boton primario" id="ar-enlace-visor" href="viewer.html" data-t="irAlVisor"></a>
     </div>
   </div>
 </body>

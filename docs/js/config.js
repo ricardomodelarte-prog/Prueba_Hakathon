@@ -62,18 +62,36 @@ MARTE.CONFIG = {
 MARTE.IDIOMA = 'es';
 MARTE.TEXTOS = {
   es: {
-    titulo: 'Mapa Seguro Marte AR',
-    subtitulo: 'El rover Perseverance conduce sobre un mapa de riesgo del terreno de Marte. ' +
-               'Demo de práctica para NASA Space Apps.',
+    // --- Portada (index.html) ---
+    titulo: 'Mapa seguro de Marte',
+    tituloA: 'Mapa seguro',
+    tituloB: 'de Marte',
+    subtitulo: 'Apunta tu móvil a una tarjeta y el cráter Jezero se levanta en relieve sobre tu mesa. ' +
+               'El rover Perseverance recorre la ruta más segura según la pendiente.',
     verAR: 'Ver en AR',
     ver3D: 'Ver en 3D',
-    pistaAR: 'Para AR necesitas el móvil con HTTPS y la tarjeta (en papel o en otra pantalla). ' +
-             'Sin tarjeta o sin cámara, usa "Ver en 3D".',
-    pistaEnlace: 'Enlace para abrir en el móvil:',
+    pistaAR: 'La AR necesita cámara y HTTPS. Sin cámara o sin tarjeta, usa «Ver en 3D».',
+    tarjetaTitulo: 'La tarjeta de anclaje',
+    tarjetaTexto: 'Es la imagen que reconoce la cámara. Imprímela o ábrela en otra pantalla.',
+    abrirTarjeta: 'Abrir la tarjeta de AR',
+    pasosTitulo: 'Cómo verlo en AR',
+    paso1T: 'Ten la tarjeta a mano',
+    paso1: 'En papel o en otra pantalla, con buena luz y sin reflejos.',
+    paso2T: 'Abre la AR y da permiso a la cámara',
+    paso2: 'Pulsa «Ver en AR». Funciona en Safari (iPhone) y Chrome (Android).',
+    paso3T: 'Apunta a la tarjeta',
+    paso3: 'El mapa se levanta sobre ella. Muévete alrededor y sigue al rover.',
+    qrTitulo: 'Ábrelo en tu móvil',
+    qrTexto: 'Escanea el código con la cámara del móvil.',
+    qrAlt: 'Código QR con el enlace de esta página',
+    qrLocal: 'Estás en localhost: un móvil no podrá abrir este enlace. ' +
+             'Usa la dirección pública (https) o la IP de tu ordenador.',
+    pistaEnlace: 'O copia el enlace:',
     copiar: 'Copiar enlace',
     copiado: 'Copiado',
-    abrirTarjeta: 'Abrir la tarjeta de AR',
-    creditos: 'Modelo 3D del rover: NASA/JPL-Caltech. Terreno: procedural de práctica (no es real).',
+    creditos: 'Proyecto para el reto NASA Space Apps 2026; no es un producto oficial de la NASA. ' +
+              'Modelo 3D del rover: NASA/JPL-Caltech. Terreno: procedural de práctica (no es real).',
+    plano: 'Curvas de nivel decorativas con la ruta A → B',
 
     // Notas en pantalla
     nota: 'Rover ampliado ×{rover} · Relieve ×{relieve}',
@@ -85,6 +103,7 @@ MARTE.TEXTOS = {
     rutaSinSegura: 'Aviso: no hay ruta totalmente segura; la ruta cruza zonas rojas.',
 
     // Leyenda
+    botonRiesgo: 'Mapa de riesgo',
     leyendaTitulo: 'Riesgo por pendiente',
     leyendaVerde: 'Transitable (< {v}°)',
     leyendaAmbar: 'Precaución ({v}–{a}°)',
@@ -132,7 +151,8 @@ MARTE.TEXTOS = {
     fallbackConsejo: 'Abre este enlace en Safari (iPhone) o Chrome (Android) para probar la AR. ' +
                      'Mientras tanto, puedes explorar el mapa en 3D aquí abajo.',
     copiarEnlaceAR: 'Copiar enlace de AR',
-    cerrar: 'Cerrar'
+    cerrar: 'Cerrar',
+    cerrarConsejos: 'Cerrar los consejos'
   }
 };
 
